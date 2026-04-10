@@ -52,33 +52,51 @@ const BookingSection = () => {
         return;
       }
 
+      console.log("=== BOOKING FORM SUBMISSION ===");
+      console.log("Client data:", { fullName, phone, email });
+      console.log("Booking data:", { deviceModel, issueType: issue, description, preferredDate: date ? format(date, "yyyy-MM-dd") : null, preferredTime: time || null });
+
       // 1. Check if client exists by phone number
-      const { data: existingClients, error: lookupError } = await supabase
+      const { data: existingClient, error: clientLookupError } = await supabase
         .from("clients")
         .select("id")
         .eq("phone", phone)
-        .limit(1);
+        .single();
 
-      if (lookupError) throw lookupError;
+      console.log("Client lookup result:", { existingClient, clientLookupError });
 
       let clientId: string;
 
-      if (existingClients && existingClients.length > 0) {
-        clientId = existingClients[0].id;
-      } else {
-        // Create new client
+      if (clientLookupError && clientLookupError.code === "PGRST116") {
+        // No rows found — create new client
+        console.log("No existing client found, creating new one...");
+        const clientPayload = { full_name: fullName, phone, email };
+        console.log("Inserting client:", clientPayload);
+
         const { data: newClient, error: insertClientError } = await supabase
           .from("clients")
-          .insert({ full_name: fullName, phone, email })
+          .insert(clientPayload)
           .select("id")
           .single();
 
-        if (insertClientError) throw insertClientError;
+        console.log("Client insert response:", { newClient, insertClientError });
+
+        if (insertClientError) {
+          console.error("Client insert error details:", JSON.stringify(insertClientError));
+          throw insertClientError;
+        }
         clientId = newClient.id;
+      } else if (clientLookupError) {
+        // A real error (not "no rows") — could be RLS blocking SELECT
+        console.error("Client lookup error:", JSON.stringify(clientLookupError));
+        throw clientLookupError;
+      } else {
+        clientId = existingClient.id;
+        console.log("Found existing client:", clientId);
       }
 
       // 2. Insert booking
-      const { error: bookingError } = await supabase.from("bookings").insert({
+      const bookingPayload = {
         client_id: clientId,
         device_model: deviceModel,
         issue_type: issue,
@@ -86,15 +104,33 @@ const BookingSection = () => {
         preferred_date: date ? format(date, "yyyy-MM-dd") : null,
         preferred_time: time || null,
         status: "pending",
-      });
+      };
+      console.log("Inserting booking:", bookingPayload);
 
-      if (bookingError) throw bookingError;
+      const { data: newBooking, error: bookingError } = await supabase
+        .from("bookings")
+        .insert(bookingPayload)
+        .select("*")
+        .single();
+
+      console.log("Booking insert response:", { newBooking, bookingError });
+
+      if (bookingError) {
+        console.error("Booking insert error details:", JSON.stringify(bookingError));
+        throw bookingError;
+      }
 
       // 3. Success
+      console.log("=== BOOKING SUCCESSFUL ===", newBooking);
       setSubmitted(true);
       toast.success("Appointment requested! We'll confirm within the hour.");
-    } catch (err) {
-      console.error("Booking error:", err);
+    } catch (err: any) {
+      console.error("=== BOOKING FAILED ===");
+      console.error("Error code:", err?.code);
+      console.error("Error message:", err?.message);
+      console.error("Error details:", err?.details);
+      console.error("Error hint:", err?.hint);
+      console.error("Full error:", JSON.stringify(err, null, 2));
       toast.error("Something went wrong. Please call us directly at (514) 555-0101.");
     } finally {
       setLoading(false);
