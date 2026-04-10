@@ -10,6 +10,7 @@ import { CalendarIcon, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
 
 const issueTypes = [
   "Screen Replacement",
@@ -28,6 +29,8 @@ const timeSlots = [
 
 const BookingSection = () => {
   const [date, setDate] = useState<Date>();
+  const [issue, setIssue] = useState("");
+  const [time, setTime] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -35,12 +38,67 @@ const BookingSection = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Placeholder — will connect to Supabase later
-    await new Promise((r) => setTimeout(r, 1000));
+    try {
+      const formData = new FormData(e.currentTarget);
+      const fullName = (formData.get("name") as string).trim();
+      const phone = (formData.get("phone") as string).trim();
+      const email = (formData.get("email") as string)?.trim() || null;
+      const deviceModel = (formData.get("device") as string).trim();
+      const description = (formData.get("description") as string)?.trim() || null;
 
-    setLoading(false);
-    setSubmitted(true);
-    toast.success("Booking submitted! We'll confirm shortly.");
+      if (!fullName || !phone || !deviceModel || !issue) {
+        toast.error("Please fill in all required fields.");
+        setLoading(false);
+        return;
+      }
+
+      // 1. Check if client exists by phone number
+      const { data: existingClients, error: lookupError } = await supabase
+        .from("clients")
+        .select("id")
+        .eq("phone", phone)
+        .limit(1);
+
+      if (lookupError) throw lookupError;
+
+      let clientId: string;
+
+      if (existingClients && existingClients.length > 0) {
+        clientId = existingClients[0].id;
+      } else {
+        // Create new client
+        const { data: newClient, error: insertClientError } = await supabase
+          .from("clients")
+          .insert({ full_name: fullName, phone, email })
+          .select("id")
+          .single();
+
+        if (insertClientError) throw insertClientError;
+        clientId = newClient.id;
+      }
+
+      // 2. Insert booking
+      const { error: bookingError } = await supabase.from("bookings").insert({
+        client_id: clientId,
+        device_model: deviceModel,
+        issue_type: issue,
+        description,
+        preferred_date: date ? format(date, "yyyy-MM-dd") : null,
+        preferred_time: time || null,
+        status: "pending",
+      });
+
+      if (bookingError) throw bookingError;
+
+      // 3. Success
+      setSubmitted(true);
+      toast.success("Appointment requested! We'll confirm within the hour.");
+    } catch (err) {
+      console.error("Booking error:", err);
+      toast.error("Something went wrong. Please call us directly at (514) 555-0101.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -48,9 +106,9 @@ const BookingSection = () => {
       <section id="booking" className="py-20 section-alt">
         <div className="container max-w-2xl text-center space-y-4">
           <CheckCircle className="h-16 w-16 text-primary mx-auto" />
-          <h2 className="text-3xl font-bold">Booking Received!</h2>
+          <h2 className="text-3xl font-bold">Appointment Requested!</h2>
           <p className="text-muted-foreground">
-            We'll contact you shortly to confirm your appointment. Thank you for choosing iFixCellulaire.
+            We'll confirm within the hour. Thank you for choosing iFixCellulaire.
           </p>
           <Button onClick={() => setSubmitted(false)}>Book Another Repair</Button>
         </div>
@@ -77,6 +135,10 @@ const BookingSection = () => {
               <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} />
             </div>
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="email">Email (optional)</Label>
+            <Input id="email" name="email" type="email" placeholder="john@example.com" maxLength={255} />
+          </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
               <Label htmlFor="device">Device Model</Label>
@@ -84,7 +146,7 @@ const BookingSection = () => {
             </div>
             <div className="space-y-2">
               <Label>Issue Type</Label>
-              <Select name="issue" required>
+              <Select value={issue} onValueChange={setIssue} required>
                 <SelectTrigger>
                   <SelectValue placeholder="Select issue" />
                 </SelectTrigger>
@@ -127,7 +189,7 @@ const BookingSection = () => {
             </div>
             <div className="space-y-2">
               <Label>Preferred Time</Label>
-              <Select name="time">
+              <Select value={time} onValueChange={setTime}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select time" />
                 </SelectTrigger>
