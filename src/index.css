@@ -74,7 +74,7 @@
 
 @layer utilities {
   .section-alt {
-    background-color: hsl(var(--section-alt));
+    background-color: hsl(0 0% 100%);
   }
   .gradient-primary {
     background: var(--hero-gradient);

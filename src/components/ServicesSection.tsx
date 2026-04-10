@@ -11,10 +11,9 @@ const services = [
 ];
 
 const ServicesSection = () => (
-  <section id="services" className="py-20 section-alt">
+  <section id="services" className="py-20">
     <div className="container">
       <div className="text-center mb-14">
-        <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">What we fix</p>
         <h2 className="text-3xl md:text-4xl font-bold">Our Services</h2>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
