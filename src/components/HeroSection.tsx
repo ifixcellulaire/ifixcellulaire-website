@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Star, CheckCircle } from "lucide-react";
-import logoImg from "@/assets/logo-lfix.jpg";
 import StripeBar from "./StripeBar";
 
 const stats = [
@@ -12,7 +11,7 @@ const stats = [
 ];
 
 const HeroSection = () => (
-  <section className="relative pt-[70px]">
+  <section className="relative pt-[86px]">
     <div className="container grid lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -43,11 +42,14 @@ const HeroSection = () => (
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="flex items-center justify-center"
+        className="w-full h-full min-h-[400px] lg:min-h-[500px]"
       >
-        <div className="rounded-lg overflow-hidden bg-muted border border-border w-full aspect-[4/3] flex items-center justify-center p-8">
-          <img src={logoImg} alt="L-FIX Cellulaire" className="max-w-full max-h-full object-contain" style={{ mixBlendMode: 'screen' }} />
-        </div>
+        <img
+          src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=800&q=80"
+          alt="Technician repairing a phone"
+          className="w-full h-full object-cover"
+          style={{ display: 'block' }}
+        />
       </motion.div>
     </div>
 

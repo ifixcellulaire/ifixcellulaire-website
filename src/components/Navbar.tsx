@@ -22,9 +22,20 @@ const Navbar = () => {
         <StripeBar />
       </div>
       <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <a href="/" className="flex items-center">
-            <img src={logoImg} alt="L-FIX Cellulaire" className="h-10 w-auto" style={{ mixBlendMode: 'screen' }} />
+        <div className="container flex items-center justify-between h-20">
+          <a href="/" className="flex items-center" style={{ background: 'transparent' }}>
+            <img
+              src={logoImg}
+              alt="L-FIX Cellulaire"
+              style={{
+                height: '70px',
+                width: 'auto',
+                mixBlendMode: 'screen',
+                filter: 'brightness(1.15) contrast(1.1)',
+                display: 'block',
+                background: 'transparent',
+              }}
+            />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {links.map((l) => (
