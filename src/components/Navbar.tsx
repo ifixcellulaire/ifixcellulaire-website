@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import StripeBar from "./StripeBar";
 import { Button } from "@/components/ui/button";
 import logoImg from "@/assets/logo-lfix.jpg";
 
@@ -17,11 +18,13 @@ const Navbar = () => {
   return (
     <>
       {/* Top stripe accent */}
-      <div className="fixed top-0 left-0 right-0 z-[60] h-[5px] stripe-bar" />
-      <header className="fixed top-[5px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
+      <div className="fixed top-0 left-0 right-0 z-[60]">
+        <StripeBar />
+      </div>
+      <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="container flex items-center justify-between h-16">
           <a href="/" className="flex items-center">
-            <img src={logoImg} alt="L-FIX Cellulaire" className="h-10 w-auto" />
+            <img src={logoImg} alt="L-FIX Cellulaire" className="h-10 w-auto" style={{ mixBlendMode: 'screen' }} />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {links.map((l) => (

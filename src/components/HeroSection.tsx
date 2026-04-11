@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Star, CheckCircle } from "lucide-react";
 import logoImg from "@/assets/logo-lfix.jpg";
+import StripeBar from "./StripeBar";
 
 const stats = [
   { value: "500+", label: "REPAIRS COMPLETED", icon: CheckCircle },
@@ -11,7 +12,7 @@ const stats = [
 ];
 
 const HeroSection = () => (
-  <section className="relative pt-[calc(5px+4rem)]">
+  <section className="relative pt-[70px]">
     <div className="container grid lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -25,7 +26,7 @@ const HeroSection = () => (
           <span className="text-destructive">done right.</span>
         </h1>
         <p className="text-base text-muted-foreground max-w-lg font-body">
-          Fast, reliable repairs with genuine parts. Walk in or book online — most repairs done in under an hour.
+          Professional screen replacements, battery swaps, water damage recovery &amp; more. Trusted by hundreds of customers in Greater Montréal.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button size="lg" asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider text-sm">
@@ -45,13 +46,10 @@ const HeroSection = () => (
         className="flex items-center justify-center"
       >
         <div className="rounded-lg overflow-hidden bg-muted border border-border w-full aspect-[4/3] flex items-center justify-center p-8">
-          <img src={logoImg} alt="L-FIX Cellulaire" className="max-w-full max-h-full object-contain" />
+          <img src={logoImg} alt="L-FIX Cellulaire" className="max-w-full max-h-full object-contain" style={{ mixBlendMode: 'screen' }} />
         </div>
       </motion.div>
     </div>
-
-    {/* Stripe bar */}
-    <div className="h-[7px] stripe-bar" />
 
     {/* Trust bar */}
     <div className="bg-muted">
@@ -66,6 +64,9 @@ const HeroSection = () => (
         </div>
       </div>
     </div>
+
+    {/* Stripe divider below hero */}
+    <StripeBar />
   </section>
 );
 
