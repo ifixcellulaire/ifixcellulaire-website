@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Star, CheckCircle } from "lucide-react";
+import logoImg from "@/assets/logo-lfix.jpg";
 
 const stats = [
   { value: "500+", label: "REPAIRS COMPLETED", icon: CheckCircle },
@@ -43,12 +44,8 @@ const HeroSection = () => (
         transition={{ duration: 0.7, delay: 0.2 }}
         className="flex items-center justify-center"
       >
-        <div className="rounded-lg overflow-hidden bg-muted border border-border w-full aspect-[4/3] flex items-center justify-center">
-          <span className="text-4xl tracking-tight">
-            <span className="font-light text-foreground">i</span>
-            <span className="font-bold text-primary">Fix</span>
-            <span className="font-light text-foreground">Cellulaire</span>
-          </span>
+        <div className="rounded-lg overflow-hidden bg-muted border border-border w-full aspect-[4/3] flex items-center justify-center p-8">
+          <img src={logoImg} alt="L-FIX Cellulaire" className="max-w-full max-h-full object-contain" />
         </div>
       </motion.div>
     </div>

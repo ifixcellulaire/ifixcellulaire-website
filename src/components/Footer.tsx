@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import logoImg from "@/assets/logo-lfix.jpg";
 
 const Footer = () => (
   <footer id="contact" className="bg-[hsl(0,0%,2%)] text-foreground pt-0">
@@ -8,11 +9,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-3 gap-12">
         <div className="space-y-4">
           <a href="/" className="flex items-center">
-            <span className="text-xl tracking-tight">
-              <span className="font-light text-foreground">i</span>
-              <span className="font-bold text-primary">Fix</span>
-              <span className="font-light text-foreground">Cellulaire</span>
-            </span>
+            <img src={logoImg} alt="L-FIX Cellulaire" className="h-12 w-auto" />
           </a>
           <p className="text-sm text-muted-foreground font-body">
             Montreal's trusted phone and tablet repair experts. Quality repairs, fair prices, and fast turnaround.
