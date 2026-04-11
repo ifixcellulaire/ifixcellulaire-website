@@ -45,7 +45,7 @@ const HeroSection = () => (
         className="w-full min-h-[400px] overflow-hidden"
       >
         <img
-          src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=800&q=80"
+          src="/phone_fix.png"
           alt="Technician repairing a smartphone"
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: 0 }}
         />
