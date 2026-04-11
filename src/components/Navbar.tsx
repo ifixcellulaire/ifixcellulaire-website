@@ -23,19 +23,14 @@ const Navbar = () => {
       </div>
       <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="container flex items-center justify-between h-20">
-          <a href="/" className="flex items-center" style={{ background: 'transparent' }}>
-            <img
-              src={logoImg}
-              alt="L-FIX Cellulaire"
-              style={{
-                height: '70px',
-                width: 'auto',
-                mixBlendMode: 'screen',
-                filter: 'brightness(1.15) contrast(1.1)',
-                display: 'block',
-                background: 'transparent',
-              }}
-            />
+          <a href="/" className="flex items-center">
+            <div style={{ background: '#0a0a0a', lineHeight: 0 }}>
+              <img
+                src={logoImg}
+                alt="L-FIX Cellulaire"
+                style={{ height: '70px', width: 'auto', display: 'block' }}
+              />
+            </div>
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {links.map((l) => (

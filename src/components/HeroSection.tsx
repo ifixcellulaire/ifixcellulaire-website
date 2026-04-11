@@ -12,7 +12,7 @@ const stats = [
 
 const HeroSection = () => (
   <section className="relative pt-[86px]">
-    <div className="container grid lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
+    <div className="container grid lg:grid-cols-2 gap-12 items-center py-14 lg:py-20">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,13 +42,13 @@ const HeroSection = () => (
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="w-full h-full min-h-[400px] lg:min-h-[500px]"
+        className="w-full overflow-hidden"
+        style={{ maxHeight: '500px' }}
       >
         <img
-          src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=800&q=80"
-          alt="Technician repairing a phone"
-          className="w-full h-full object-cover"
-          style={{ display: 'block' }}
+          src="https://images.unsplash.com/photo-1648737967278-d3f2e3b74380?w=800&q=80"
+          alt="Technician repairing a smartphone on a workbench"
+          style={{ width: '100%', height: '500px', objectFit: 'cover', display: 'block' }}
         />
       </motion.div>
     </div>
