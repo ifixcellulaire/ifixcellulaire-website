@@ -1,6 +1,15 @@
 import { Instagram } from "lucide-react";
 
-const placeholders = Array.from({ length: 6 }, (_, i) => i);
+const galleryPhotos = [
+  { src: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&q=80", alt: "Screen replacement repair" },
+  { src: "https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=400&q=80", alt: "Phone repair technician" },
+  { src: "https://images.unsplash.com/photo-1609592806596-b9d6a659a3b6?w=400&q=80", alt: "Battery replacement" },
+  { src: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&q=80", alt: "Charging port repair" },
+  { src: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80", alt: "Water damage recovery" },
+  { src: "https://images.unsplash.com/photo-1502920917128-1aa500764b01?w=400&q=80", alt: "Camera repair" },
+  { src: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80", alt: "Refurbished iPhone" },
+  { src: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80", alt: "Refurbished Samsung" },
+];
 
 const GallerySection = () => (
   <section id="gallery" className="py-20">
@@ -8,21 +17,25 @@ const GallerySection = () => (
       <div className="text-center mb-14">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">OUR WORK</p>
         <h2 className="text-3xl md:text-4xl font-black uppercase">REPAIR GALLERY</h2>
-        <p className="text-muted-foreground mt-2 font-body">Follow us on Instagram for daily repair updates</p>
+        <p className="text-muted-foreground mt-2 font-body">A look at repairs we're proud of</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-border">
-        {placeholders.map((i) => (
-          <div
-            key={i}
-            className="aspect-square bg-muted flex items-center justify-center group hover:bg-accent transition-colors cursor-pointer"
-          >
-            <Instagram className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border">
+        {galleryPhotos.map((photo) => (
+          <div key={photo.src} className="aspect-square overflow-hidden">
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
           </div>
         ))}
       </div>
       <div className="text-center mt-8">
+        <p className="text-sm text-muted-foreground mb-2 font-body">
+          Follow us on Instagram @ifixcellulaire for daily updates
+        </p>
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/ifixcellulaire/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline uppercase tracking-widest"
