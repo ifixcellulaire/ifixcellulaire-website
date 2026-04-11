@@ -1,14 +1,14 @@
 import { Instagram } from "lucide-react";
 
 const galleryPhotos = [
-  { src: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&q=80", alt: "Screen replacement repair" },
   { src: "https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=400&q=80", alt: "Phone repair technician" },
-  { src: "https://images.unsplash.com/photo-1609592806596-b9d6a659a3b6?w=400&q=80", alt: "Battery replacement" },
+  { src: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&q=80", alt: "Screen replacement repair" },
+  { src: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&q=80", alt: "Battery replacement" },
+  { src: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=400&q=80", alt: "Camera repair" },
   { src: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&q=80", alt: "Charging port repair" },
+  { src: "https://images.unsplash.com/photo-1648737967278-d3f2e3b74380?w=400&q=80", alt: "Phone repair workbench" },
   { src: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80", alt: "Water damage recovery" },
-  { src: "https://images.unsplash.com/photo-1502920917128-1aa500764b01?w=400&q=80", alt: "Camera repair" },
   { src: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80", alt: "Refurbished iPhone" },
-  { src: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80", alt: "Refurbished Samsung" },
 ];
 
 const GallerySection = () => (

@@ -16,7 +16,7 @@ const services = [
     desc: "Restore your phone's battery life to like-new condition.",
     price: "From $49",
     num: "02",
-    img: "https://images.unsplash.com/photo-1609592806596-b9d6a659a3b6?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80",
   },
   {
     icon: Droplets,
@@ -32,7 +32,7 @@ const services = [
     desc: "Blurry photos? We replace front and rear cameras.",
     price: "From $69",
     num: "04",
-    img: "https://images.unsplash.com/photo-1502920917128-1aa500764b01?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=600&q=80",
   },
   {
     icon: Plug,

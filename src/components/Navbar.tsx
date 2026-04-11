@@ -24,11 +24,11 @@ const Navbar = () => {
       <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="container flex items-center justify-between h-20">
           <a href="/" className="flex items-center">
-            <div style={{ background: '#0a0a0a', lineHeight: 0 }}>
+            <div style={{ backgroundColor: '#0a0a0a', padding: 0, overflow: 'hidden', lineHeight: 0 }}>
               <img
                 src={logoImg}
                 alt="L-FIX Cellulaire"
-                style={{ height: '70px', width: 'auto', display: 'block' }}
+                style={{ height: '70px', width: 'auto', objectFit: 'cover', background: 'transparent', display: 'block' }}
               />
             </div>
           </a>

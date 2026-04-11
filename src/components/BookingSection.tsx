@@ -42,7 +42,6 @@ const BookingSection = () => {
       const formData = new FormData(e.currentTarget);
       const fullName = (formData.get("name") as string).trim();
       const phone = (formData.get("phone") as string).trim();
-      const email = (formData.get("email") as string)?.trim() || null;
       const deviceModel = (formData.get("device") as string).trim();
       const description = (formData.get("description") as string)?.trim() || null;
 
@@ -53,7 +52,7 @@ const BookingSection = () => {
       }
 
       console.log("=== BOOKING FORM SUBMISSION ===");
-      console.log("Client data:", { fullName, phone, email });
+      console.log("Client data:", { fullName, phone });
       console.log("Booking data:", { deviceModel, issueType: issue, description, preferredDate: date ? format(date, "yyyy-MM-dd") : null, preferredTime: time || null });
 
       const { data: existingClient, error: clientLookupError } = await supabase
@@ -68,7 +67,7 @@ const BookingSection = () => {
 
       if (clientLookupError && clientLookupError.code === "PGRST116") {
         console.log("No existing client found, creating new one...");
-        const clientPayload = { full_name: fullName, phone, email };
+        const clientPayload = { full_name: fullName, phone };
         console.log("Inserting client:", clientPayload);
 
         const { data: newClient, error: insertClientError } = await supabase
@@ -165,10 +164,6 @@ const BookingSection = () => {
               <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider">Phone Number</Label>
               <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} className="bg-input border-border" />
             </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider">Email (optional)</Label>
-            <Input id="email" name="email" type="email" placeholder="john@example.com" maxLength={255} className="bg-input border-border" />
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">

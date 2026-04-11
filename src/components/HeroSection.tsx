@@ -46,9 +46,9 @@ const HeroSection = () => (
         style={{ maxHeight: '500px' }}
       >
         <img
-          src="https://images.unsplash.com/photo-1648737967278-d3f2e3b74380?w=800&q=80"
-          alt="Technician repairing a smartphone on a workbench"
-          style={{ width: '100%', height: '500px', objectFit: 'cover', display: 'block' }}
+          src="https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=800&q=80"
+          alt="Technician repairing a smartphone"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />
       </motion.div>
     </div>
