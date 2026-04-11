@@ -1,17 +1,16 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Star, CheckCircle } from "lucide-react";
-import heroImg from "@/assets/hero-repair.jpg";
 
 const stats = [
-  { icon: CheckCircle, text: "500+ Repairs completed" },
-  { icon: Star, text: "4.9★ Google rating" },
-  { icon: Shield, text: "90 Day warranty" },
-  { icon: Clock, text: "24h Turnaround time" },
+  { value: "500+", label: "REPAIRS COMPLETED", icon: CheckCircle },
+  { value: "4.9★", label: "GOOGLE RATING", icon: Star },
+  { value: "90", label: "DAY WARRANTY", icon: Shield },
+  { value: "24H", label: "TURNAROUND", icon: Clock },
 ];
 
 const HeroSection = () => (
-  <section className="relative pt-16">
+  <section className="relative pt-[calc(5px+4rem)]">
     <div className="container grid lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -19,21 +18,22 @@ const HeroSection = () => (
         transition={{ duration: 0.7 }}
         className="space-y-6"
       >
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-          Expert phone & tablet repair,{" "}
-          <span className="text-primary">done right.</span>
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">EXPERT MOBILE REPAIR</p>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight uppercase">
+          Phone & tablet repair,{" "}
+          <span className="text-destructive">done right.</span>
         </h1>
-        <p className="text-lg text-muted-foreground max-w-lg">
+        <p className="text-base text-muted-foreground max-w-lg font-body">
           Fast, reliable repairs with genuine parts. Walk in or book online — most repairs done in under an hour.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Button size="lg" asChild>
+          <Button size="lg" asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider text-sm">
             <a href="#booking">
-              Book a Repair <ArrowRight className="ml-2 h-4 w-4" />
+              BOOK A REPAIR <ArrowRight className="ml-2 h-4 w-4" />
             </a>
           </Button>
-          <Button size="lg" variant="outline" asChild>
-            <a href="#services">View Services</a>
+          <Button size="lg" variant="outline" asChild className="border-border text-foreground hover:bg-muted uppercase font-bold tracking-wider text-sm">
+            <a href="#services">VIEW SERVICES</a>
           </Button>
         </div>
       </motion.div>
@@ -41,25 +41,29 @@ const HeroSection = () => (
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.2 }}
+        className="flex items-center justify-center"
       >
-        <div className="rounded-2xl overflow-hidden shadow-2xl">
-          <img src={heroImg} alt="Phone repair technician at work" className="w-full h-auto object-cover" />
-        </div>
-        <div className="gradient-primary rounded-xl px-5 py-3 text-primary-foreground mt-4 inline-flex items-center gap-2">
-          <CheckCircle className="h-5 w-5" />
-          <p className="text-sm font-semibold">500+ Repairs completed</p>
+        <div className="rounded-lg overflow-hidden bg-muted border border-border w-full aspect-[4/3] flex items-center justify-center">
+          <span className="text-4xl tracking-tight">
+            <span className="font-light text-foreground">i</span>
+            <span className="font-bold text-primary">Fix</span>
+            <span className="font-light text-foreground">Cellulaire</span>
+          </span>
         </div>
       </motion.div>
     </div>
 
+    {/* Stripe bar */}
+    <div className="h-[7px] stripe-bar" />
+
     {/* Trust bar */}
-    <div className="border-y">
-      <div className="container py-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div className="bg-muted">
+      <div className="container py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((s) => (
-            <div key={s.text} className="flex items-center gap-3 justify-center">
-              <s.icon className="h-5 w-5 text-primary shrink-0" />
-              <span className="text-sm font-medium">{s.text}</span>
+            <div key={s.label} className="text-center">
+              <p className="text-2xl md:text-3xl font-black text-primary">{s.value}</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">{s.label}</p>
             </div>
           ))}
         </div>

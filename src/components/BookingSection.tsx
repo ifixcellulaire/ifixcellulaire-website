@@ -56,7 +56,6 @@ const BookingSection = () => {
       console.log("Client data:", { fullName, phone, email });
       console.log("Booking data:", { deviceModel, issueType: issue, description, preferredDate: date ? format(date, "yyyy-MM-dd") : null, preferredTime: time || null });
 
-      // 1. Check if client exists by phone number
       const { data: existingClient, error: clientLookupError } = await supabase
         .from("clients")
         .select("id")
@@ -68,7 +67,6 @@ const BookingSection = () => {
       let clientId: string;
 
       if (clientLookupError && clientLookupError.code === "PGRST116") {
-        // No rows found — create new client
         console.log("No existing client found, creating new one...");
         const clientPayload = { full_name: fullName, phone, email };
         console.log("Inserting client:", clientPayload);
@@ -87,7 +85,6 @@ const BookingSection = () => {
         }
         clientId = newClient.id;
       } else if (clientLookupError) {
-        // A real error (not "no rows") — could be RLS blocking SELECT
         console.error("Client lookup error:", JSON.stringify(clientLookupError));
         throw clientLookupError;
       } else {
@@ -95,7 +92,6 @@ const BookingSection = () => {
         console.log("Found existing client:", clientId);
       }
 
-      // 2. Insert booking
       const bookingPayload = {
         client_id: clientId,
         device_model: deviceModel,
@@ -120,7 +116,6 @@ const BookingSection = () => {
         throw bookingError;
       }
 
-      // 3. Success
       console.log("=== BOOKING SUCCESSFUL ===", newBooking);
       setSubmitted(true);
       toast.success("Appointment requested! We'll confirm within the hour.");
@@ -142,11 +137,11 @@ const BookingSection = () => {
       <section id="booking" className="py-20 section-alt">
         <div className="container max-w-2xl text-center space-y-4">
           <CheckCircle className="h-16 w-16 text-primary mx-auto" />
-          <h2 className="text-3xl font-bold">Appointment Requested!</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-3xl font-black uppercase">APPOINTMENT REQUESTED!</h2>
+          <p className="text-muted-foreground font-body">
             We'll confirm within the hour. Thank you for choosing iFixCellulaire.
           </p>
-          <Button onClick={() => setSubmitted(false)}>Book Another Repair</Button>
+          <Button onClick={() => setSubmitted(false)} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider">BOOK ANOTHER REPAIR</Button>
         </div>
       </section>
     );
@@ -156,34 +151,34 @@ const BookingSection = () => {
     <section id="booking" className="py-20 section-alt">
       <div className="container max-w-2xl">
         <div className="text-center mb-10">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Get started</p>
-          <h2 className="text-3xl md:text-4xl font-bold">Book a Repair</h2>
-          <p className="text-muted-foreground mt-2">Fill out the form and we'll confirm your appointment.</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">GET STARTED</p>
+          <h2 className="text-3xl md:text-4xl font-black uppercase">BOOK A REPAIR</h2>
+          <p className="text-muted-foreground mt-2 font-body">Fill out the form and we'll confirm your appointment.</p>
         </div>
-        <form onSubmit={handleSubmit} className="bg-card rounded-2xl border p-6 md:p-8 space-y-5">
+        <form onSubmit={handleSubmit} className="bg-card rounded-lg border border-border border-t-2 border-t-primary p-6 md:p-8 space-y-5">
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input id="name" name="name" placeholder="John Doe" required maxLength={100} />
+              <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider">Full Name</Label>
+              <Input id="name" name="name" placeholder="John Doe" required maxLength={100} className="bg-input border-border" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} />
+              <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider">Phone Number</Label>
+              <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} className="bg-input border-border" />
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email (optional)</Label>
-            <Input id="email" name="email" type="email" placeholder="john@example.com" maxLength={255} />
+            <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider">Email (optional)</Label>
+            <Input id="email" name="email" type="email" placeholder="john@example.com" maxLength={255} className="bg-input border-border" />
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label htmlFor="device">Device Model</Label>
-              <Input id="device" name="device" placeholder="iPhone 15 Pro" required maxLength={100} />
+              <Label htmlFor="device" className="text-xs font-bold uppercase tracking-wider">Device Model</Label>
+              <Input id="device" name="device" placeholder="iPhone 15 Pro" required maxLength={100} className="bg-input border-border" />
             </div>
             <div className="space-y-2">
-              <Label>Issue Type</Label>
+              <Label className="text-xs font-bold uppercase tracking-wider">Issue Type</Label>
               <Select value={issue} onValueChange={setIssue} required>
-                <SelectTrigger>
+                <SelectTrigger className="bg-input border-border">
                   <SelectValue placeholder="Select issue" />
                 </SelectTrigger>
                 <SelectContent>
@@ -195,17 +190,17 @@ const BookingSection = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea id="description" name="description" placeholder="Tell us more about the issue…" rows={3} maxLength={1000} />
+            <Label htmlFor="description" className="text-xs font-bold uppercase tracking-wider">Description</Label>
+            <Textarea id="description" name="description" placeholder="Tell us more about the issue…" rows={3} maxLength={1000} className="bg-input border-border" />
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label>Preferred Date</Label>
+              <Label className="text-xs font-bold uppercase tracking-wider">Preferred Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+                    className={cn("w-full justify-start text-left font-normal bg-input border-border", !date && "text-muted-foreground")}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {date ? format(date, "PPP") : "Pick a date"}
@@ -224,9 +219,9 @@ const BookingSection = () => {
               </Popover>
             </div>
             <div className="space-y-2">
-              <Label>Preferred Time</Label>
+              <Label className="text-xs font-bold uppercase tracking-wider">Preferred Time</Label>
               <Select value={time} onValueChange={setTime}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-input border-border">
                   <SelectValue placeholder="Select time" />
                 </SelectTrigger>
                 <SelectContent>
@@ -237,8 +232,8 @@ const BookingSection = () => {
               </Select>
             </div>
           </div>
-          <Button type="submit" size="lg" className="w-full" disabled={loading}>
-            {loading ? "Submitting…" : "Submit Booking"}
+          <Button type="submit" size="lg" className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-black tracking-wider" disabled={loading}>
+            {loading ? "SUBMITTING…" : "SUBMIT BOOKING"}
           </Button>
         </form>
       </div>

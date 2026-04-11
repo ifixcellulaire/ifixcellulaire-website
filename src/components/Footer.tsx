@@ -1,19 +1,26 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import Logo from "./Logo";
 
 const Footer = () => (
-  <footer id="contact" className="bg-foreground text-background py-16">
-    <div className="container">
+  <footer id="contact" className="bg-[hsl(0,0%,2%)] text-foreground pt-0">
+    {/* Top stripe */}
+    <div className="h-[3px] stripe-bar" />
+    <div className="container py-16">
       <div className="grid md:grid-cols-3 gap-12">
         <div className="space-y-4">
-          <Logo className="[&_span]:text-background [&_svg]:text-primary" />
-          <p className="text-sm opacity-70">
+          <a href="/" className="flex items-center">
+            <span className="text-xl tracking-tight">
+              <span className="font-light text-foreground">i</span>
+              <span className="font-bold text-primary">Fix</span>
+              <span className="font-light text-foreground">Cellulaire</span>
+            </span>
+          </a>
+          <p className="text-sm text-muted-foreground font-body">
             Montreal's trusted phone and tablet repair experts. Quality repairs, fair prices, and fast turnaround.
           </p>
         </div>
         <div className="space-y-4">
-          <h3 className="font-semibold text-lg">Contact</h3>
-          <div className="space-y-3 text-sm opacity-70">
+          <h3 className="font-black text-xs uppercase tracking-[0.2em]">CONTACT</h3>
+          <div className="space-y-3 text-sm text-muted-foreground font-body">
             <div className="flex items-start gap-3">
               <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
               <span>1234 Rue Sainte-Catherine O, Montreal, QC H3G 1P1</span>
@@ -29,8 +36,8 @@ const Footer = () => (
           </div>
         </div>
         <div className="space-y-4">
-          <h3 className="font-semibold text-lg">Hours</h3>
-          <div className="space-y-2 text-sm opacity-70">
+          <h3 className="font-black text-xs uppercase tracking-[0.2em]">HOURS</h3>
+          <div className="space-y-2 text-sm text-muted-foreground font-body">
             <div className="flex items-center gap-3">
               <Clock className="h-4 w-4 shrink-0 text-primary" />
               <div>
@@ -42,7 +49,7 @@ const Footer = () => (
           </div>
         </div>
       </div>
-      <div className="border-t border-background/10 mt-12 pt-8 text-center text-xs opacity-50">
+      <div className="border-t border-border mt-12 pt-8 text-center text-[10px] text-muted-foreground uppercase tracking-widest">
         © {new Date().getFullYear()} iFixCellulaire. All rights reserved.
       </div>
     </div>
