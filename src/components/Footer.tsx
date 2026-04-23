@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import logoImg from "@/assets/logo-lfix.jpg";
+import logoImg from "@/assets/logo-lfix.png";
 
 const Footer = () => (
   <footer id="contact" className="bg-[hsl(0,0%,2%)] text-foreground pt-0">

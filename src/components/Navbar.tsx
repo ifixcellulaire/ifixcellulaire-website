@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import StripeBar from "./StripeBar";
 import { Button } from "@/components/ui/button";
-import logoImg from "@/assets/logo-lfix.jpg";
+import logoImg from "@/assets/logo-lfix.png";
 
 const links = [
   { label: "SERVICES", href: "#services" },
@@ -24,13 +24,11 @@ const Navbar = () => {
       <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="container flex items-center justify-between h-20">
           <a href="/" className="flex items-center">
-            <div style={{ backgroundColor: '#0a0a0a', padding: 0, overflow: 'hidden', lineHeight: 0 }}>
-              <img
-                src={logoImg}
-                alt="L-FIX Cellulaire"
-                style={{ height: '70px', width: 'auto', objectFit: 'cover', background: 'transparent', display: 'block' }}
-              />
-            </div>
+            <img
+              src={logoImg}
+              alt="L-FIX Cellulaire"
+              className="h-[70px] w-auto object-cover"
+            />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {links.map((l) => (
