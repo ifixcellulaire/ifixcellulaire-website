@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,38 +6,38 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 90%;
+    --background: 0 0% 0%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 90%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 90%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 193 78% 53%;
-    --primary-foreground: 0 0% 4%;
+    --primary: 199 89% 38%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 237 59% 41%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 53%;
+    --muted: 222 47% 12%;
+    --muted-foreground: 215 20% 78%;
 
-    --accent: 0 0% 7%;
-    --accent-foreground: 193 78% 53%;
+    --accent: 222 47% 12%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 5 78% 49%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 10%;
-    --input: 0 0% 7%;
-    --ring: 193 78% 53%;
+    --border: 215 28% 18%;
+    --input: 215 28% 14%;
+    --ring: 199 89% 38%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --stripe-gradient: linear-gradient(90deg, hsl(193, 78%, 53%) 0%, hsl(237, 59%, 41%) 50%, hsl(5, 78%, 49%) 100%);
-    --section-alt: 0 0% 3%;
+    --stripe-gradient: linear-gradient(90deg, hsl(199 89% 38%) 0%, hsl(221 83% 53%) 50%, hsl(186 94% 43%) 100%);
+    --section-alt: 222 47% 6%;
   }
 }
 
@@ -47,18 +47,44 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Arial Black', 'Arial', system-ui, sans-serif;
+    font-family: "Outfit", "Inter", system-ui, sans-serif;
+    background-image:
+      radial-gradient(1200px 500px at 0% -10%, hsl(199 89% 38% / 0.16), transparent 60%),
+      radial-gradient(900px 380px at 100% -20%, hsl(221 83% 53% / 0.18), transparent 55%);
+    line-height: 1.5;
   }
   section[id], footer[id], div[id] {
     scroll-margin-top: 100px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @layer utilities {
   .section-alt {
-    background-color: hsl(0 0% 3%);
+    background-color: hsl(var(--section-alt));
   }
   .stripe-bar {
-    background: var(--stripe-gradient);
+    background: hsl(var(--background));
+  }
+
+  .glass-surface {
+    background: hsl(0 0% 0% / 0.92);
+    border: 1px solid hsl(215 28% 18% / 0.95);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 50px -35px hsl(0 0% 0% / 0.85);
+  }
+
+  .framer-card {
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    box-shadow: 0 12px 34px -26px hsl(215 28% 17% / 0.5);
   }
 }
