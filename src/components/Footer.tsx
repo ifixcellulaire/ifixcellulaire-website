@@ -18,10 +18,7 @@ const Footer = () => (
         <div className="space-y-4">
           <h3 className="font-black text-xs uppercase tracking-[0.2em]">CONTACT</h3>
           <div className="space-y-3 text-sm text-muted-foreground font-body">
-            <div className="flex items-start gap-3">
-              <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-              <span>1234 Rue Sainte-Catherine O, Montreal, QC H3G 1P1</span>
-            </div>
+
             <div className="flex items-center gap-3">
               <Phone className="h-4 w-4 shrink-0 text-primary" />
               <a href="tel:+15145550123" className="hover:text-primary transition-colors">(514) 555-0123</a>

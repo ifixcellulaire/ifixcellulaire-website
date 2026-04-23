@@ -8,7 +8,7 @@ const services = [
     desc: "Cracked or unresponsive screen? We use OEM-quality parts for a perfect fix.",
     price: "From $79",
     num: "01",
-    img: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=600&q=80",
+    img: "/services/screen.png",
   },
   {
     icon: Battery,
@@ -16,7 +16,7 @@ const services = [
     desc: "Restore your phone's battery life to like-new condition.",
     price: "From $49",
     num: "02",
-    img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80",
+    img: "/services/battery.png",
   },
   {
     icon: Droplets,
@@ -24,7 +24,7 @@ const services = [
     desc: "Liquid damage recovery with ultrasonic cleaning technology.",
     price: "From $59",
     num: "03",
-    img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80",
+    img: "/services/water.png",
   },
   {
     icon: Camera,
@@ -32,7 +32,7 @@ const services = [
     desc: "Blurry photos? We replace front and rear cameras.",
     price: "From $69",
     num: "04",
-    img: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=600&q=80",
+    img: "/services/camera.png",
   },
   {
     icon: Plug,
@@ -40,7 +40,7 @@ const services = [
     desc: "Fix loose or non-functional charging ports quickly.",
     price: "From $49",
     num: "05",
-    img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80",
+    img: "/services/port.png",
   },
   {
     icon: Building2,
@@ -48,14 +48,14 @@ const services = [
     desc: "Volume repair contracts for businesses. Priority service & billing.",
     price: "Contact us",
     num: "06",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80",
+    img: "/services/corporate.png",
   },
 ];
 
 const ServicesSection = () => (
-  <section id="services" className="py-20 section-alt">
+  <section id="services" className="py-12 section-alt">
     <div className="container">
-      <div className="text-center mb-14">
+      <div className="text-center mb-8">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">WHAT WE DO</p>
         <h2 className="text-3xl md:text-4xl font-black uppercase">OUR SERVICES</h2>
       </div>
@@ -72,10 +72,10 @@ const ServicesSection = () => (
             <img
               src={s.img}
               alt={s.title}
-              style={{ width: '100%', height: '160px', objectFit: 'cover', display: 'block' }}
+              className="w-full h-32 object-cover block"
             />
-            <div className="p-6">
-              <span className="text-3xl font-black text-primary/30 block mb-3">{s.num}</span>
+            <div className="p-4">
+              <span className="text-2xl font-black text-primary/30 block mb-2">{s.num}</span>
               <h3 className="font-black text-sm uppercase tracking-wider mb-2">{s.title}</h3>
               <p className="text-sm text-muted-foreground font-body mb-3">{s.desc}</p>
               <p className="text-sm font-bold text-primary">{s.price}</p>
