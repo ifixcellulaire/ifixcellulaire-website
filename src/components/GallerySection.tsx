@@ -12,9 +12,10 @@ const galleryPhotos = [
 ];
 
 const GallerySection = () => (
-  <section id="gallery" className="py-20">
+  <section className="relative py-12">
+    <div id="gallery" className="absolute -top-24" />
     <div className="container">
-      <div className="text-center mb-14">
+      <div className="text-center mb-8">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">OUR WORK</p>
         <h2 className="text-3xl md:text-4xl font-black uppercase">REPAIR GALLERY</h2>
         <p className="text-muted-foreground mt-2 font-body">A look at repairs we're proud of</p>

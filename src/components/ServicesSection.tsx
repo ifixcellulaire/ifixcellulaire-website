@@ -53,7 +53,8 @@ const services = [
 ];
 
 const ServicesSection = () => (
-  <section id="services" className="py-12 section-alt">
+  <section className="relative py-12 section-alt">
+    <div id="services" className="absolute -top-24" />
     <div className="container">
       <div className="text-center mb-8">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">WHAT WE DO</p>

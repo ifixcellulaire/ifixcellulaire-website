@@ -2,7 +2,8 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import logoImg from "@/assets/logo-lfix.png";
 
 const Footer = () => (
-  <footer id="contact" className="bg-[hsl(0,0%,2%)] text-foreground pt-0">
+  <footer className="relative bg-[hsl(0,0%,2%)] text-foreground pt-0">
+    <div id="contact" className="absolute -top-24" />
     {/* Top stripe */}
     <div className="h-[3px] stripe-bar" />
     <div className="container py-16">

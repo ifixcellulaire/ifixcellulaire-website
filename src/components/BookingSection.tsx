@@ -133,7 +133,8 @@ const BookingSection = () => {
 
   if (submitted) {
     return (
-      <section id="booking" className="py-20 section-alt">
+      <section className="relative py-12 section-alt">
+        <div id="booking" className="absolute -top-24" />
         <div className="container max-w-2xl text-center space-y-4">
           <CheckCircle className="h-16 w-16 text-primary mx-auto" />
           <h2 className="text-3xl font-black uppercase">APPOINTMENT REQUESTED!</h2>
@@ -147,9 +148,10 @@ const BookingSection = () => {
   }
 
   return (
-    <section id="booking" className="py-20 section-alt">
+    <section className="relative py-12 section-alt">
+      <div id="booking" className="absolute -top-24" />
       <div className="container max-w-2xl">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">GET STARTED</p>
           <h2 className="text-3xl md:text-4xl font-black uppercase">BOOK A REPAIR</h2>
           <p className="text-muted-foreground mt-2 font-body">Fill out the form and we'll confirm your appointment.</p>

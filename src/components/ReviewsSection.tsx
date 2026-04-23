@@ -10,9 +10,10 @@ const reviews = [
 ];
 
 const ReviewsSection = () => (
-  <section id="reviews" className="py-20 section-alt">
+  <section className="relative py-12 section-alt">
+    <div id="reviews" className="absolute -top-24" />
     <div className="container">
-      <div className="text-center mb-14">
+      <div className="text-center mb-8">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">TRUSTED BY THOUSANDS</p>
         <h2 className="text-3xl md:text-4xl font-black uppercase">CUSTOMER REVIEWS</h2>
         <div className="flex items-center justify-center gap-6 mt-4">

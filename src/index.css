@@ -49,6 +49,9 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Arial Black', 'Arial', system-ui, sans-serif;
   }
+  section[id], footer[id], div[id] {
+    scroll-margin-top: 100px;
+  }
 }
 
 @layer utilities {

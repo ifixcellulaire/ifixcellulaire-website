@@ -9,7 +9,7 @@ const links = [
   { label: "GALLERY", href: "#gallery" },
   { label: "REVIEWS", href: "#reviews" },
 
-  { label: "CONTACT", href: "#contact" },
+  { label: "CONTACT", href: "#booking" },
 ];
 
 const Navbar = () => {
