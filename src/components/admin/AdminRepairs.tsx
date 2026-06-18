@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { toast } from "sonner";
 import { format } from "date-fns";
 
@@ -25,13 +25,22 @@ const AdminRepairs = () => {
   const [clients, setClients] = useState<any[]>([]);
 
   const load = async () => {
-    const { data } = await supabase.from("repairs").select("*, clients(full_name)").order("created_at", { ascending: false });
-    setRepairs(data ?? []);
+    try {
+      const data = await dbAdapter.getRepairs();
+      setRepairs(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load repairs");
+    }
   };
 
   const loadClients = async () => {
-    const { data } = await supabase.from("clients").select("id, full_name");
-    setClients(data ?? []);
+    try {
+      const data = await dbAdapter.getClients();
+      setClients(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => { load(); loadClients(); }, []);
@@ -47,11 +56,15 @@ const AdminRepairs = () => {
       status: fd.get("status") as string || "in_progress",
       warranty_expires: fd.get("warranty_expires") as string || null,
     };
-    const { error } = await supabase.from("repairs").insert(payload);
-    if (error) { toast.error("Failed to add repair"); return; }
-    toast.success("Repair added");
-    setOpen(false);
-    load();
+    try {
+      await dbAdapter.createRepair(payload);
+      toast.success("Repair added");
+      setOpen(false);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to add repair");
+    }
   };
 
   return (

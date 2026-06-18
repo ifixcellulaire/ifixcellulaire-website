@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { format } from "date-fns";
 
 const AdminClients = () => {
@@ -10,18 +10,27 @@ const AdminClients = () => {
   const [selected, setSelected] = useState<any>(null);
   const [repairs, setRepairs] = useState<any[]>([]);
 
+  const load = async () => {
+    try {
+      const data = await dbAdapter.getClients();
+      setClients(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const load = async () => {
-      const { data } = await supabase.from("clients").select("*, repairs(id, created_at)").order("created_at", { ascending: false });
-      setClients(data ?? []);
-    };
     load();
   }, []);
 
   const openClient = async (client: any) => {
     setSelected(client);
-    const { data } = await supabase.from("repairs").select("*").eq("client_id", client.id).order("created_at", { ascending: false });
-    setRepairs(data ?? []);
+    try {
+      const data = await dbAdapter.getRepairsByClientId(client.id);
+      setRepairs(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

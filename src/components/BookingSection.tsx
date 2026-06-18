@@ -10,7 +10,7 @@ import { CalendarIcon, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 
 const issueTypes = [
   "Screen Replacement",
@@ -55,39 +55,15 @@ const BookingSection = () => {
       console.log("Client data:", { fullName, phone });
       console.log("Booking data:", { deviceModel, issueType: issue, description, preferredDate: date ? format(date, "yyyy-MM-dd") : null, preferredTime: time || null });
 
-      const { data: existingClient, error: clientLookupError } = await supabase
-        .from("clients")
-        .select("id")
-        .eq("phone", phone)
-        .single();
-
-      console.log("Client lookup result:", { existingClient, clientLookupError });
-
+      let client = await dbAdapter.getClientByPhone(phone);
       let clientId: string;
 
-      if (clientLookupError && clientLookupError.code === "PGRST116") {
+      if (!client) {
         console.log("No existing client found, creating new one...");
-        const clientPayload = { full_name: fullName, phone };
-        console.log("Inserting client:", clientPayload);
-
-        const { data: newClient, error: insertClientError } = await supabase
-          .from("clients")
-          .insert(clientPayload)
-          .select("id")
-          .single();
-
-        console.log("Client insert response:", { newClient, insertClientError });
-
-        if (insertClientError) {
-          console.error("Client insert error details:", JSON.stringify(insertClientError));
-          throw insertClientError;
-        }
+        const newClient = await dbAdapter.createClient({ full_name: fullName, phone });
         clientId = newClient.id;
-      } else if (clientLookupError) {
-        console.error("Client lookup error:", JSON.stringify(clientLookupError));
-        throw clientLookupError;
       } else {
-        clientId = existingClient.id;
+        clientId = client.id;
         console.log("Found existing client:", clientId);
       }
 
@@ -102,18 +78,7 @@ const BookingSection = () => {
       };
       console.log("Inserting booking:", bookingPayload);
 
-      const { data: newBooking, error: bookingError } = await supabase
-        .from("bookings")
-        .insert(bookingPayload)
-        .select("*")
-        .single();
-
-      console.log("Booking insert response:", { newBooking, bookingError });
-
-      if (bookingError) {
-        console.error("Booking insert error details:", JSON.stringify(bookingError));
-        throw bookingError;
-      }
+      const newBooking = await dbAdapter.createBooking(bookingPayload);
 
       console.log("=== BOOKING SUCCESSFUL ===", newBooking);
       setSubmitted(true);

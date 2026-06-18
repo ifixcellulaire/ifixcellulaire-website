@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { CalendarCheck, Wrench, Users, AlertTriangle } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { format } from "date-fns";
 
 const AdminDashboard = () => {
@@ -13,22 +13,18 @@ const AdminDashboard = () => {
   useEffect(() => {
     const load = async () => {
       const today = format(new Date(), "yyyy-MM-dd");
-
-      const [bk, rp, cl, inv, todayBk] = await Promise.all([
-        supabase.from("bookings").select("id", { count: "exact", head: true }),
-        supabase.from("repairs").select("id", { count: "exact", head: true }),
-        supabase.from("clients").select("id", { count: "exact", head: true }),
-        supabase.from("inventory").select("id").lte("quantity", 2),
-        supabase.from("bookings").select("*, clients(full_name, phone)").eq("preferred_date", today).eq("status", "pending"),
-      ]);
-
-      setStats({
-        bookings: bk.count ?? 0,
-        repairs: rp.count ?? 0,
-        clients: cl.count ?? 0,
-        lowStock: inv.data?.length ?? 0,
-      });
-      setTodayBookings(todayBk.data ?? []);
+      try {
+        const res = await dbAdapter.getStats(today);
+        setStats({
+          bookings: res.bookings,
+          repairs: res.repairs,
+          clients: res.clients,
+          lowStock: res.lowStock,
+        });
+        setTodayBookings(res.todayBookings);
+      } catch (err) {
+        console.error(err);
+      }
     };
     load();
   }, []);

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { toast } from "sonner";
 
 const listingStatuses = ["available", "reserved", "sold"];
@@ -22,8 +22,13 @@ const AdminMarketplace = () => {
   const [open, setOpen] = useState(false);
 
   const load = async () => {
-    const { data } = await supabase.from("marketplace_listings").select("*").order("created_at", { ascending: false });
-    setListings(data ?? []);
+    try {
+      const data = await dbAdapter.getMarketplaceListings();
+      setListings(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load listings");
+    }
   };
 
   useEffect(() => { load(); }, []);
@@ -31,25 +36,34 @@ const AdminMarketplace = () => {
   const toggleStatus = async (id: string, current: string) => {
     const idx = listingStatuses.indexOf(current);
     const next = listingStatuses[(idx + 1) % listingStatuses.length];
-    const { error } = await supabase.from("marketplace_listings").update({ status: next }).eq("id", id);
-    if (error) { toast.error("Failed to update"); return; }
-    load();
+    try {
+      await dbAdapter.updateMarketplaceListingStatus(id, next);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update status");
+    }
   };
 
   const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const { error } = await supabase.from("marketplace_listings").insert({
+    const payload = {
       title: fd.get("title") as string,
       category: fd.get("category") as string,
       condition: fd.get("condition") as string,
       price: parseFloat(fd.get("price") as string) || 0,
       status: "available",
-    });
-    if (error) { toast.error("Failed to add listing"); return; }
-    toast.success("Listing added");
-    setOpen(false);
-    load();
+    };
+    try {
+      await dbAdapter.addMarketplaceListing(payload);
+      toast.success("Listing added");
+      setOpen(false);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to add listing");
+    }
   };
 
   return (

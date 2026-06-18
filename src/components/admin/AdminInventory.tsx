@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Plus, Minus } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { toast } from "sonner";
 
 const AdminInventory = () => {
@@ -13,34 +13,45 @@ const AdminInventory = () => {
   const [open, setOpen] = useState(false);
 
   const load = async () => {
-    const { data } = await supabase.from("inventory").select("*").order("name");
-    setItems(data ?? []);
+    try {
+      const data = await dbAdapter.getInventory();
+      setItems(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load inventory");
+    }
   };
 
   useEffect(() => { load(); }, []);
 
   const updateQty = async (id: string, delta: number) => {
-    const item = items.find((i) => i.id === id);
-    if (!item) return;
-    const newQty = Math.max(0, (item.quantity || 0) + delta);
-    const { error } = await supabase.from("inventory").update({ quantity: newQty }).eq("id", id);
-    if (error) { toast.error("Failed to update"); return; }
-    load();
+    try {
+      await dbAdapter.updateInventoryQty(id, delta);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update");
+    }
   };
 
   const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const { error } = await supabase.from("inventory").insert({
+    const payload = {
       name: fd.get("name") as string,
       category: fd.get("category") as string,
       quantity: parseInt(fd.get("quantity") as string) || 0,
       unit_cost: parseFloat(fd.get("unit_cost") as string) || 0,
-    });
-    if (error) { toast.error("Failed to add item"); return; }
-    toast.success("Item added");
-    setOpen(false);
-    load();
+    };
+    try {
+      await dbAdapter.addInventoryItem(payload);
+      toast.success("Item added");
+      setOpen(false);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to add item");
+    }
   };
 
   return (

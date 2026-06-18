@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { supabase } from "@/lib/supabase";
+import { dbAdapter } from "@/lib/db";
 import { toast } from "sonner";
 
 const statuses = ["pending", "confirmed", "completed", "cancelled"];
@@ -19,19 +19,26 @@ const AdminBookings = () => {
   const [filter, setFilter] = useState("all");
 
   const load = async () => {
-    let q = supabase.from("bookings").select("*, clients(full_name, phone)").order("created_at", { ascending: false });
-    if (filter !== "all") q = q.eq("status", filter);
-    const { data } = await q;
-    setBookings(data ?? []);
+    try {
+      const data = await dbAdapter.getBookings(filter);
+      setBookings(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load bookings");
+    }
   };
 
   useEffect(() => { load(); }, [filter]);
 
   const updateStatus = async (id: string, status: string) => {
-    const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
-    if (error) { toast.error("Failed to update status"); return; }
-    toast.success(`Status updated to ${status}`);
-    load();
+    try {
+      await dbAdapter.updateBookingStatus(id, status);
+      toast.success(`Status updated to ${status}`);
+      load();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update status");
+    }
   };
 
   return (
