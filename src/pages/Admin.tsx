@@ -21,7 +21,8 @@ const Admin = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
+    const storedPassword = localStorage.getItem("ifix_admin_password") || ADMIN_PASSWORD;
+    if (password === storedPassword) {
       localStorage.setItem(STORAGE_KEY, "true");
       setAuthenticated(true);
       setError("");

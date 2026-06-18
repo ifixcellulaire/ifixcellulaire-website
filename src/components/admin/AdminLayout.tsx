@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LogOut, LayoutDashboard, CalendarCheck, Wrench, Users, Package, ShoppingBag } from "lucide-react";
+import { LogOut, LayoutDashboard, CalendarCheck, Wrench, Users, Package, ShoppingBag, Settings } from "lucide-react";
 import AdminDashboard from "./AdminDashboard";
 import AdminBookings from "./AdminBookings";
 import AdminRepairs from "./AdminRepairs";
 import AdminClients from "./AdminClients";
 import AdminInventory from "./AdminInventory";
 import AdminMarketplace from "./AdminMarketplace";
+import AdminSettings from "./AdminSettings";
 
 const navItems = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -15,6 +16,7 @@ const navItems = [
   { key: "clients", label: "Clients", icon: Users },
   { key: "inventory", label: "Inventory", icon: Package },
   { key: "marketplace", label: "Marketplace", icon: ShoppingBag },
+  { key: "settings", label: "Settings", icon: Settings },
 ];
 
 const AdminLayout = ({ onLogout }: { onLogout: () => void }) => {
@@ -27,6 +29,7 @@ const AdminLayout = ({ onLogout }: { onLogout: () => void }) => {
       case "clients": return <AdminClients />;
       case "inventory": return <AdminInventory />;
       case "marketplace": return <AdminMarketplace />;
+      case "settings": return <AdminSettings />;
       default: return <AdminDashboard />;
     }
   };
