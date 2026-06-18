@@ -41,18 +41,19 @@ const BookingSection = () => {
     try {
       const formData = new FormData(e.currentTarget);
       const fullName = (formData.get("name") as string).trim();
+      const email = (formData.get("email") as string).trim();
       const phone = (formData.get("phone") as string).trim();
       const deviceModel = (formData.get("device") as string).trim();
       const description = (formData.get("description") as string)?.trim() || null;
 
-      if (!fullName || !phone || !deviceModel || !issue) {
+      if (!fullName || !email || !phone || !deviceModel || !issue) {
         toast.error("Please fill in all required fields.");
         setLoading(false);
         return;
       }
 
       console.log("=== BOOKING FORM SUBMISSION ===");
-      console.log("Client data:", { fullName, phone });
+      console.log("Client data:", { fullName, email, phone });
       console.log("Booking data:", { deviceModel, issueType: issue, description, preferredDate: date ? format(date, "yyyy-MM-dd") : null, preferredTime: time || null });
 
       let client = await dbAdapter.getClientByPhone(phone);
@@ -60,7 +61,7 @@ const BookingSection = () => {
 
       if (!client) {
         console.log("No existing client found, creating new one...");
-        const newClient = await dbAdapter.createClient({ full_name: fullName, phone });
+        const newClient = await dbAdapter.createClient({ full_name: fullName, phone, email });
         clientId = newClient.id;
       } else {
         clientId = client.id;
@@ -128,16 +129,21 @@ const BookingSection = () => {
               <Input id="name" name="name" placeholder="John Doe" required maxLength={100} className="bg-input border-border" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider">Phone Number</Label>
-              <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} className="bg-input border-border" />
+              <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider">Email Address</Label>
+              <Input id="email" name="email" type="email" placeholder="john@example.com" required maxLength={100} className="bg-input border-border" />
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
+              <Label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider">Phone Number</Label>
+              <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} className="bg-input border-border" />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="device" className="text-xs font-semibold uppercase tracking-wider">Device Model</Label>
               <Input id="device" name="device" placeholder="iPhone 15 Pro" required maxLength={100} className="bg-input border-border" />
             </div>
-            <div className="space-y-2">
+          </div>
+          <div className="space-y-2">
               <Label className="text-xs font-semibold uppercase tracking-wider">Issue Type</Label>
               <Select value={issue} onValueChange={setIssue} required>
                 <SelectTrigger className="bg-input border-border">
@@ -150,8 +156,7 @@ const BookingSection = () => {
                 </SelectContent>
               </Select>
             </div>
-          </div>
-          <div className="space-y-2">
+            <div className="space-y-2">
             <Label htmlFor="description" className="text-xs font-semibold uppercase tracking-wider">Description</Label>
             <Textarea id="description" name="description" placeholder="Tell us more about the issue…" rows={3} maxLength={1000} className="bg-input border-border" />
           </div>
