@@ -26,7 +26,7 @@ const Footer = () => (
             </div>
             <div className="flex items-center gap-3">
               <Mail className="h-4 w-4 shrink-0 text-primary" />
-              <a href="mailto:info@ifixcellulaire.ca" className="hover:text-primary transition-colors">info@ifixcellulaire.ca</a>
+              <a href="mailto:ifixcellulaire@gmail.com" className="hover:text-primary transition-colors">ifixcellulaire@gmail.com</a>
             </div>
           </div>
         </div>
