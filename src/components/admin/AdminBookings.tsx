@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { dbAdapter } from "@/lib/db";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 const statuses = ["pending", "confirmed", "completed", "cancelled"];
 
@@ -61,6 +62,7 @@ const AdminBookings = () => {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Requested At</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Time</TableHead>
               <TableHead>Client</TableHead>
@@ -73,6 +75,9 @@ const AdminBookings = () => {
           <TableBody>
             {bookings.map((b: any) => (
               <TableRow key={b.id}>
+                <TableCell className="text-xs text-muted-foreground">
+                  {b.created_at ? format(new Date(b.created_at), "yyyy-MM-dd h:mm a") : "—"}
+                </TableCell>
                 <TableCell>{b.preferred_date || "—"}</TableCell>
                 <TableCell>{b.preferred_time || "—"}</TableCell>
                 <TableCell>{b.clients?.full_name}</TableCell>
@@ -94,7 +99,7 @@ const AdminBookings = () => {
               </TableRow>
             ))}
             {bookings.length === 0 && (
-              <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">No bookings found.</TableCell></TableRow>
+              <TableRow><TableCell colSpan={8} className="text-center text-muted-foreground py-8">No bookings found.</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
