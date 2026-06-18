@@ -3,49 +3,53 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { KeyRound, Lock, ShieldCheck } from "lucide-react";
+import { KeyRound, Lock, ShieldCheck, Instagram, Globe } from "lucide-react";
 import { toast } from "sonner";
 
 const DEFAULT_ADMIN_PASSWORD = "ifix2024admin";
 const PASSWORD_STORAGE_KEY = "ifix_admin_password";
+const INSTAGRAM_WIDGET_KEY = "ifix_instagram_widget_url";
 
 const AdminSettings = () => {
+  // Password state
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Instagram state
+  const [instagramWidgetUrl, setInstagramWidgetUrl] = useState(
+    localStorage.getItem(INSTAGRAM_WIDGET_KEY) || ""
+  );
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setPasswordLoading(true);
 
     try {
-      // Get the current password from localStorage or fallback to default
       const savedPassword = localStorage.getItem(PASSWORD_STORAGE_KEY) || DEFAULT_ADMIN_PASSWORD;
 
       if (currentPassword !== savedPassword) {
         toast.error("The current password you entered is incorrect.");
-        setLoading(false);
+        setPasswordLoading(false);
         return;
       }
 
       if (newPassword.length < 6) {
         toast.error("New password must be at least 6 characters long.");
-        setLoading(false);
+        setPasswordLoading(false);
         return;
       }
 
       if (newPassword !== confirmPassword) {
         toast.error("New passwords do not match.");
-        setLoading(false);
+        setPasswordLoading(false);
         return;
       }
 
-      // Save new password
       localStorage.setItem(PASSWORD_STORAGE_KEY, newPassword);
       toast.success("Admin password updated successfully!");
       
-      // Reset form
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
@@ -53,7 +57,18 @@ const AdminSettings = () => {
       console.error(err);
       toast.error("Failed to update password. Please try again.");
     } finally {
-      setLoading(false);
+      setPasswordLoading(false);
+    }
+  };
+
+  const handleInstagramSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      localStorage.setItem(INSTAGRAM_WIDGET_KEY, instagramWidgetUrl.trim());
+      toast.success("Instagram feed settings saved successfully!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to save Instagram feed settings.");
     }
   };
 
@@ -62,10 +77,58 @@ const AdminSettings = () => {
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
         <p className="text-muted-foreground">
-          Manage your administrative preferences and account security settings.
+          Manage your administrative preferences and integrations.
         </p>
       </div>
 
+      {/* Instagram Integration Card */}
+      <Card className="border border-border">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Instagram className="h-5 w-5 text-primary" />
+            <CardTitle>Instagram Feed Integration</CardTitle>
+          </div>
+          <CardDescription>
+            Connect your live Instagram photos to the home page Repair Gallery section.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <form onSubmit={handleInstagramSubmit} className="space-y-4 max-w-md">
+            <div className="space-y-2">
+              <Label htmlFor="instagramUrl">Instagram Widget Embed URL</Label>
+              <div className="relative">
+                <Globe className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="instagramUrl"
+                  type="url"
+                  placeholder="https://lightwidget.com/widgets/..."
+                  value={instagramWidgetUrl}
+                  onChange={(e) => setInstagramWidgetUrl(e.target.value)}
+                  className="pl-10 bg-input border-border"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                If left empty, the website will display a premium Instagram simulated grid linking directly to your profile page.
+              </p>
+            </div>
+            <Button type="submit" className="w-full sm:w-auto px-6">
+              Save Feed Settings
+            </Button>
+          </form>
+
+          <div className="border-t pt-4 space-y-3">
+            <h4 className="text-sm font-semibold">How to get a free Instagram Embed URL:</h4>
+            <ol className="list-decimal list-inside text-xs text-muted-foreground space-y-2 leading-relaxed">
+              <li>Go to a free widget provider like <a href="https://lightwidget.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">LightWidget.com</a> or <a href="https://elfsight.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">Elfsight.com</a>.</li>
+              <li>Log in with your Instagram account: <span className="font-semibold text-foreground">@ifixcellulaire</span>.</li>
+              <li>Configure your grid layout (we recommend 4 columns, 2 rows).</li>
+              <li>Generate the embed code, copy <strong>only the URL</strong> inside the <code>src="..."</code> attribute of the iframe, and paste it above.</li>
+            </ol>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Password Change Card */}
       <Card className="border border-border">
         <CardHeader>
           <div className="flex items-center gap-2">
@@ -77,7 +140,7 @@ const AdminSettings = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+          <form onSubmit={handlePasswordSubmit} className="space-y-4 max-w-md">
             <div className="space-y-2">
               <Label htmlFor="currentPassword">Current Password</Label>
               <div className="relative">
@@ -126,8 +189,8 @@ const AdminSettings = () => {
               </div>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full sm:w-auto px-6">
-              {loading ? "Updating..." : "Update Password"}
+            <Button type="submit" disabled={passwordLoading} className="w-full sm:w-auto px-6">
+              {passwordLoading ? "Updating..." : "Update Password"}
             </Button>
           </form>
         </CardContent>
