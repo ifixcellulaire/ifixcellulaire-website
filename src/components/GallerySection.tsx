@@ -5,51 +5,51 @@ import logoImg from "@/assets/logo-lfix.png";
 const galleryPhotos = [
   {
     src: "https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=400&q=80",
-    alt: "Phone repair technician",
+    alt: "iPhone Screen Replacement",
     likes: 42,
     comments: 5
   },
   {
     src: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&q=80",
-    alt: "Screen replacement repair",
+    alt: "Expert Diagnostic & Repair",
     likes: 58,
     comments: 8
   },
   {
     src: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&q=80",
-    alt: "Battery replacement",
+    alt: "Refurbished iPhone 14 Pro",
     likes: 31,
     comments: 3
   },
   {
     src: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=400&q=80",
-    alt: "Camera repair",
+    alt: "Camera Sensor Repair",
     likes: 49,
     comments: 6
   },
   {
-    src: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&q=80",
-    alt: "Charging port repair",
-    likes: 37,
+    src: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&q=80",
+    alt: "iPhone 15 Pro Titanium Repair",
+    likes: 67,
+    comments: 12
+  },
+  {
+    src: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&q=80",
+    alt: "Water Damage Board Repair",
+    likes: 54,
+    comments: 9
+  },
+  {
+    src: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&q=80",
+    alt: "Samsung Galaxy Screen Repair",
+    likes: 39,
     comments: 4
   },
   {
-    src: "https://images.unsplash.com/photo-1648737967278-d3f2e3b74380?w=400&q=80",
-    alt: "Phone repair workbench",
-    likes: 64,
-    comments: 11
-  },
-  {
-    src: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80",
-    alt: "Water damage recovery",
-    likes: 53,
-    comments: 7
-  },
-  {
-    src: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80",
-    alt: "Refurbished iPhone",
-    likes: 72,
-    comments: 9
+    src: "https://images.unsplash.com/photo-1609334767348-a3d4d1ee4047?w=400&q=80",
+    alt: "Refurbished iPhone 15 & 14 Lineup",
+    likes: 85,
+    comments: 15
   }
 ];
 
