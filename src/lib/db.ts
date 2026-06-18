@@ -177,6 +177,15 @@ const localDb = {
     return bks[idx];
   },
 
+  async updateBooking(id: string, updates: any) {
+    const bks = JSON.parse(localStorage.getItem(STORAGE_BOOKINGS) || "[]");
+    const idx = bks.findIndex((b: any) => b.id === id);
+    if (idx === -1) throw new Error("Booking not found");
+    bks[idx] = { ...bks[idx], ...updates };
+    localStorage.setItem(STORAGE_BOOKINGS, JSON.stringify(bks));
+    return bks[idx];
+  },
+
   async getRepairs() {
     const reps = JSON.parse(localStorage.getItem(STORAGE_REPAIRS) || "[]");
     const cls = JSON.parse(localStorage.getItem(STORAGE_CLIENTS) || "[]");
@@ -397,6 +406,13 @@ const firebaseDb = {
   async updateBookingStatus(id: string, status: string) {
     const docRef = doc(db, "bookings", id);
     await updateDoc(docRef, { status });
+    const snap = await getDoc(docRef);
+    return { id: snap.id, ...snap.data() };
+  },
+
+  async updateBooking(id: string, updates: any) {
+    const docRef = doc(db, "bookings", id);
+    await updateDoc(docRef, updates);
     const snap = await getDoc(docRef);
     return { id: snap.id, ...snap.data() };
   },
