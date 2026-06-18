@@ -2,7 +2,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import logoImg from "@/assets/logo-lfix.png";
 
 const Footer = () => (
-  <footer className="relative bg-[hsl(0,0%,2%)] text-foreground pt-0">
+  <footer className="relative section-alt text-foreground pt-0">
     <div id="contact" className="absolute -top-24" />
     {/* Top stripe */}
     <div className="h-[3px] stripe-bar" />
@@ -17,12 +17,12 @@ const Footer = () => (
           </p>
         </div>
         <div className="space-y-4">
-          <h3 className="font-black text-xs uppercase tracking-[0.2em]">CONTACT</h3>
+          <h3 className="font-semibold text-xs uppercase tracking-[0.2em]">CONTACT</h3>
           <div className="space-y-3 text-sm text-muted-foreground font-body">
 
             <div className="flex items-center gap-3">
               <Phone className="h-4 w-4 shrink-0 text-primary" />
-              <a href="tel:+15145550123" className="hover:text-primary transition-colors">(514) 555-0123</a>
+              <a href="tel:+15149844178" className="hover:text-primary transition-colors">514 984 4178</a>
             </div>
             <div className="flex items-center gap-3">
               <Mail className="h-4 w-4 shrink-0 text-primary" />
@@ -31,7 +31,7 @@ const Footer = () => (
           </div>
         </div>
         <div className="space-y-4">
-          <h3 className="font-black text-xs uppercase tracking-[0.2em]">HOURS</h3>
+          <h3 className="font-semibold text-xs uppercase tracking-[0.2em]">HOURS</h3>
           <div className="space-y-2 text-sm text-muted-foreground font-body">
             <div className="flex items-center gap-3">
               <Clock className="h-4 w-4 shrink-0 text-primary" />

@@ -53,14 +53,14 @@ const services = [
 ];
 
 const ServicesSection = () => (
-  <section className="relative py-12 section-alt">
+  <section className="relative py-16 section-alt">
     <div id="services" className="absolute -top-24" />
     <div className="container">
-      <div className="text-center mb-8">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">WHAT WE DO</p>
-        <h2 className="text-3xl md:text-4xl font-black uppercase">OUR SERVICES</h2>
+      <div className="text-center mb-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary mb-3">WHAT WE DO</p>
+        <h2 className="text-3xl md:text-4xl font-semibold">Our Services</h2>
       </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border rounded-lg overflow-hidden">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
@@ -68,7 +68,7 @@ const ServicesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card group hover:border-l-2 hover:border-l-primary transition-all overflow-hidden"
+            className="framer-card group transition-all duration-300 overflow-hidden hover:-translate-y-1"
           >
             <img
               src={s.img}
@@ -76,10 +76,10 @@ const ServicesSection = () => (
               className="w-full h-32 object-cover block"
             />
             <div className="p-4">
-              <span className="text-2xl font-black text-primary/30 block mb-2">{s.num}</span>
-              <h3 className="font-black text-sm uppercase tracking-wider mb-2">{s.title}</h3>
+              <span className="text-2xl font-semibold text-primary/40 block mb-2">{s.num}</span>
+              <h3 className="font-semibold text-sm uppercase tracking-wide mb-2">{s.title}</h3>
               <p className="text-sm text-muted-foreground font-body mb-3">{s.desc}</p>
-              <p className="text-sm font-bold text-primary">{s.price}</p>
+              <p className="text-sm font-semibold text-primary">{s.price}</p>
             </div>
           </motion.div>
         ))}

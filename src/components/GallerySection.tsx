@@ -12,17 +12,18 @@ const galleryPhotos = [
 ];
 
 const GallerySection = () => (
-  <section className="relative py-12">
+  <section className="relative py-16">
     <div id="gallery" className="absolute -top-24" />
     <div className="container">
       <div className="text-center mb-8">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">OUR WORK</p>
-        <h2 className="text-3xl md:text-4xl font-black uppercase">REPAIR GALLERY</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary mb-3">OUR WORK</p>
+        <h2 className="text-3xl md:text-4xl font-semibold">Repair Gallery</h2>
         <p className="text-muted-foreground mt-2 font-body">A look at repairs we're proud of</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border">
+      <div className="framer-card p-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {galleryPhotos.map((photo) => (
-          <div key={photo.src} className="aspect-square overflow-hidden">
+          <div key={photo.src} className="aspect-square overflow-hidden rounded-xl">
             <img
               src={photo.src}
               alt={photo.alt}
@@ -30,6 +31,7 @@ const GallerySection = () => (
             />
           </div>
         ))}
+        </div>
       </div>
       <div className="text-center mt-8">
         <p className="text-sm text-muted-foreground mb-2 font-body">
@@ -39,7 +41,7 @@ const GallerySection = () => (
           href="https://www.instagram.com/ifixcellulaire/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline uppercase tracking-widest"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline uppercase tracking-widest"
         >
           <Instagram className="h-4 w-4" /> @IFIXCELLULAIRE
         </a>

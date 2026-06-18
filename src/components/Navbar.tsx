@@ -21,8 +21,8 @@ const Navbar = () => {
       <div className="fixed top-0 left-0 right-0 z-[60]">
         <StripeBar />
       </div>
-      <header className="fixed top-[6px] left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
-        <div className="container flex items-center justify-between h-20">
+      <header className="fixed top-[14px] left-4 right-4 z-50">
+        <div className="container glass-surface flex items-center justify-between h-20 rounded-2xl px-6">
           <a href="/" className="flex items-center">
             <img
               src={logoImg}
@@ -35,12 +35,12 @@ const Navbar = () => {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-xs font-bold text-muted-foreground hover:text-foreground transition-colors tracking-widest"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wide"
               >
                 {l.label}
               </a>
             ))}
-            <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider text-xs px-6">
+            <Button asChild className="text-primary-foreground font-semibold tracking-wide text-xs px-6">
               <a href="#booking">BOOK A REPAIR</a>
             </Button>
           </nav>
@@ -49,18 +49,18 @@ const Navbar = () => {
           </button>
         </div>
         {open && (
-          <nav className="md:hidden border-t border-border bg-background px-6 py-4 space-y-3">
+          <nav className="md:hidden glass-surface rounded-2xl mt-3 px-6 py-4 space-y-3">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="block text-xs font-bold text-muted-foreground uppercase tracking-widest"
+                className="block text-sm font-semibold text-muted-foreground tracking-wide"
                 onClick={() => setOpen(false)}
               >
                 {l.label}
               </a>
             ))}
-            <Button asChild className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider text-xs">
+            <Button asChild className="w-full text-primary-foreground font-semibold tracking-wide text-xs">
               <a href="#booking" onClick={() => setOpen(false)}>BOOK A REPAIR</a>
             </Button>
           </nav>

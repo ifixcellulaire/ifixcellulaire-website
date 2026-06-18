@@ -125,7 +125,7 @@ const BookingSection = () => {
       console.error("Error details:", err?.details);
       console.error("Error hint:", err?.hint);
       console.error("Full error:", JSON.stringify(err, null, 2));
-      toast.error("Something went wrong. Please call us directly at (514) 555-0101.");
+      toast.error("Something went wrong. Please call us directly at 514 984 4178.");
     } finally {
       setLoading(false);
     }
@@ -133,47 +133,47 @@ const BookingSection = () => {
 
   if (submitted) {
     return (
-      <section className="relative py-12 section-alt">
+      <section className="relative py-16 section-alt">
         <div id="booking" className="absolute -top-24" />
         <div className="container max-w-2xl text-center space-y-4">
           <CheckCircle className="h-16 w-16 text-primary mx-auto" />
-          <h2 className="text-3xl font-black uppercase">APPOINTMENT REQUESTED!</h2>
+          <h2 className="text-3xl font-semibold">Appointment Requested!</h2>
           <p className="text-muted-foreground font-body">
             We'll confirm within the hour. Thank you for choosing iFixCellulaire.
           </p>
-          <Button onClick={() => setSubmitted(false)} className="bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-bold tracking-wider">BOOK ANOTHER REPAIR</Button>
+          <Button onClick={() => setSubmitted(false)} className="text-primary-foreground uppercase font-semibold tracking-wide">BOOK ANOTHER REPAIR</Button>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="relative py-12 section-alt">
+    <section className="relative py-16 section-alt">
       <div id="booking" className="absolute -top-24" />
       <div className="container max-w-2xl">
         <div className="text-center mb-8">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">GET STARTED</p>
-          <h2 className="text-3xl md:text-4xl font-black uppercase">BOOK A REPAIR</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary mb-3">GET STARTED</p>
+          <h2 className="text-3xl md:text-4xl font-semibold">Book a Repair</h2>
           <p className="text-muted-foreground mt-2 font-body">Fill out the form and we'll confirm your appointment.</p>
         </div>
-        <form onSubmit={handleSubmit} className="bg-card rounded-lg border border-border border-t-2 border-t-primary p-6 md:p-8 space-y-5">
+        <form onSubmit={handleSubmit} className="framer-card p-6 md:p-8 space-y-5">
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider">Full Name</Label>
+              <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider">Full Name</Label>
               <Input id="name" name="name" placeholder="John Doe" required maxLength={100} className="bg-input border-border" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider">Phone Number</Label>
+              <Label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider">Phone Number</Label>
               <Input id="phone" name="phone" type="tel" placeholder="(514) 555-0123" required maxLength={20} className="bg-input border-border" />
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label htmlFor="device" className="text-xs font-bold uppercase tracking-wider">Device Model</Label>
+              <Label htmlFor="device" className="text-xs font-semibold uppercase tracking-wider">Device Model</Label>
               <Input id="device" name="device" placeholder="iPhone 15 Pro" required maxLength={100} className="bg-input border-border" />
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-bold uppercase tracking-wider">Issue Type</Label>
+              <Label className="text-xs font-semibold uppercase tracking-wider">Issue Type</Label>
               <Select value={issue} onValueChange={setIssue} required>
                 <SelectTrigger className="bg-input border-border">
                   <SelectValue placeholder="Select issue" />
@@ -187,12 +187,12 @@ const BookingSection = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-xs font-bold uppercase tracking-wider">Description</Label>
+            <Label htmlFor="description" className="text-xs font-semibold uppercase tracking-wider">Description</Label>
             <Textarea id="description" name="description" placeholder="Tell us more about the issue…" rows={3} maxLength={1000} className="bg-input border-border" />
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label className="text-xs font-bold uppercase tracking-wider">Preferred Date</Label>
+              <Label className="text-xs font-semibold uppercase tracking-wider">Preferred Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -216,7 +216,7 @@ const BookingSection = () => {
               </Popover>
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-bold uppercase tracking-wider">Preferred Time</Label>
+              <Label className="text-xs font-semibold uppercase tracking-wider">Preferred Time</Label>
               <Select value={time} onValueChange={setTime}>
                 <SelectTrigger className="bg-input border-border">
                   <SelectValue placeholder="Select time" />
@@ -229,7 +229,7 @@ const BookingSection = () => {
               </Select>
             </div>
           </div>
-          <Button type="submit" size="lg" className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground uppercase font-black tracking-wider" disabled={loading}>
+          <Button type="submit" size="lg" className="w-full text-primary-foreground uppercase font-semibold tracking-wide" disabled={loading}>
             {loading ? "SUBMITTING…" : "SUBMIT BOOKING"}
           </Button>
         </form>
