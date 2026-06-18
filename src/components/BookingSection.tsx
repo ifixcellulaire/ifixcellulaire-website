@@ -82,6 +82,27 @@ const BookingSection = () => {
       const newBooking = await dbAdapter.createBooking(bookingPayload);
 
       console.log("=== BOOKING SUCCESSFUL ===", newBooking);
+      
+      // Send background email notification
+      fetch("/api/send-booking-notification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          phone,
+          deviceModel,
+          issueType: issue,
+          description,
+          preferredDate: date ? format(date, "yyyy-MM-dd") : null,
+          preferredTime: time || null,
+        })
+      }).catch((err) => {
+        console.error("Failed to send booking notification email:", err);
+      });
+
       setSubmitted(true);
       toast.success("Appointment requested! We'll confirm within the hour.");
     } catch (err: any) {
